@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.earnlearn.config.TaskConverter;
+import com.earnlearn.dto.TaskDTO;
 import com.earnlearn.entity.Task;
-import com.earnlearn.entity.TaskUpdateDTO;
 import com.earnlearn.serviceImpl.TaskServiceInterface;
 import com.earnlearn.serviceImpl.UserServiceInterface;
 
@@ -54,13 +55,13 @@ public class TaskController {
 	}
 
 	@GetMapping("/getTaskList")
-	public List<Task> getTaskList() {
+	public List<TaskDTO> getTaskList() {
 		// TODO Auto-generated method stub
 		return taskServiceInterface.getTaskList();
 	}
 	
 	@GetMapping("/getTaskByUid/{uid}")
-	public List<Task> getTaskByUserid(@PathVariable int uid){
+	public List<TaskDTO> getTaskByUserid(@PathVariable int uid){
 		return taskServiceInterface.getTaskByUserid(uid);
 	}
 

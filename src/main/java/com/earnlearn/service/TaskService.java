@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.earnlearn.config.TaskConverter;
 import com.earnlearn.dao.TaskDaoInterface;
 import com.earnlearn.dao.UserDaoInterface;
+import com.earnlearn.dto.TaskDTO;
 import com.earnlearn.entity.Task;
-import com.earnlearn.entity.TaskDTO;
 import com.earnlearn.entity.User;
 import com.earnlearn.serviceImpl.TaskServiceInterface;
 
@@ -20,6 +22,9 @@ public class TaskService implements TaskServiceInterface {
 	@Autowired
 	UserDaoInterface userInterface;
 
+	@Autowired
+	TaskConverter taskConverter;
+	
 	@Override
 	public Task saveTask(Task task) {
 		// TODO Auto-generated method stub	
@@ -49,41 +54,21 @@ public class TaskService implements TaskServiceInterface {
 	}
 
 	@Override
-	public List<Task> getTaskList() {
+	public List<TaskDTO> getTaskList() {
 		// TODO Auto-generated method stub
-		return taskDaoInterface.findAll();
+		List<Task> tasks = taskDaoInterface.findAll();
+		return taskConverter.entityToDto(tasks);
 	}
+	
 	
 	/*
 	 * Get all Tasks of a User
 	 * 
 	 */
-//	public List<Task> getTaskByUserid(int uid){
-//		User user = userInterface.findById(uid).get();
-//		return taskDaoInterface.findAllByUsers(user);
-//	}
-//	public List<TaskDTO> getTaskByUser(int id){
-//		
-//	}
-	
-	
-	/*
-	 * Convert Entity To a DTO
-	 */
-	public TaskDTO convertEntityToDTO(Task task) {
-		
-		TaskDTO taskDTO = new TaskDTO();
-		
-		taskDTO.setTaskId(task.getTid());
-		taskDTO.setName(task.getName());
-		taskDTO.setStartDate(task.getStartDate());
-		taskDTO.setEndDate(task.getEndDate());
-		taskDTO.setDescription(task.getDescription());
-		taskDTO.setComment(task.getComment());
-		taskDTO.setStatus(task.getStatus());
-		taskDTO.setCreatedOn(task.getCreatedOn());
-		taskDTO.setModifiedOn(task.getModifiedOn());
-		
-		return taskDTO;
+	public List<TaskDTO> getTaskByUserid(int uid){
+		User user = userInterface.findById(uid).get();
+		List<Task> tasks = taskDaoInterface.findAllByUsers(user);
+		return taskConverter.entityToDto(tasks);
 	}
+	
 }

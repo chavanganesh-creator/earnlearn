@@ -25,71 +25,60 @@ public class College {
 	
 	@OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Department>department;
-	
-	
 
 	public int getCid() {
 		return cid;
 	}
 
-
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-
 
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
 
-
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-
 
 	public List<Payment> getPayment() {
 		return payment;
 	}
 
-
 	public void setPayment(List<Payment> payment) {
 		this.payment = payment;
 	}
-
 
 	public List<Department> getDepartment() {
 		return department;
 	}
 
-
 	public void setDepartment(List<Department> department) {
 		this.department = department;
 	}
 
-
-	
-	
+	@Override
+	public String toString() {
+		return "College [cid=" + cid + ", name=" + name + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
+				+ ", payment=" + payment + ", department=" + department + "]";
+	}
 
 	public College(int cid, String name, Date createdOn, Date modifiedOn, List<Payment> payment,
 			List<Department> department) {
@@ -102,20 +91,10 @@ public class College {
 		this.department = department;
 	}
 
-
-	@Override
-	public String toString() {
-		return "College [cid=" + cid + ", name=" + name + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
-				+ ", payment=" + payment + ", department=" + department + "]";
+	public College() {
+		super();
 	}
-
-
 	
 	
 
-	
-
-	
-	
-	
 }

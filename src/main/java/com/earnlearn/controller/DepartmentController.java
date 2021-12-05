@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.earnlearn.config.DepartmentConverter;
+import com.earnlearn.dto.DepartmentDto;
 import com.earnlearn.entity.Department;
 import com.earnlearn.serviceImpl.DepartmentServiceInterface;
 
@@ -32,6 +34,9 @@ public class DepartmentController {
 	@Autowired
 	DepartmentServiceInterface departmentServiceInterface;
 	
+	@Autowired
+	DepartmentConverter Converter;
+
 	@PostMapping("/insertDepartment")
 	public Department saveDepartment(@RequestBody Department department) {
 		// TODO Auto-generated method stub
@@ -52,12 +57,12 @@ public class DepartmentController {
 	public void deleteUser(@RequestBody Department department) {
 		// TODO Auto-generated method stub
 		departmentServiceInterface.deleteDepartment(department);
-
 	}
 
 	@GetMapping("/getAllDepartment")
-	public List<Department> getDepartmentList() {
-		return departmentServiceInterface.getDepartmentList();
+	public List<DepartmentDto> getDepartmentList() {
+		List<Department> departments=departmentServiceInterface.getDepartmentList();
+		return Converter.entityToDto(departments);
 	}
 	
 	@GetMapping("/getDepartmentById/{id}")

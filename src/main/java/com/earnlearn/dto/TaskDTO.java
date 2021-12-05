@@ -1,11 +1,11 @@
-package com.earnlearn.entity;
+package com.earnlearn.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class TaskDTO {
 
 	private int taskId;
-	private int userId;
 	private String name;
 	private Date startDate;
 	private Date endDate;
@@ -15,7 +15,7 @@ public class TaskDTO {
 	private int status;
 	private Date modifiedOn;
 	private Date createdOn;
-	
+	private List<UserDTO> users;
 	
 	public int getTaskId() {
 		return taskId;
@@ -23,12 +23,7 @@ public class TaskDTO {
 	public void setTaskId(int taskId) {
 		this.taskId = taskId;
 	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -83,14 +78,38 @@ public class TaskDTO {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+	public List<UserDTO> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserDTO> users) {
+		this.users = users;
+	}
 	@Override
 	public String toString() {
-		return "TaskDTO [taskId=" + taskId + ", userId=" + userId + ", name=" + name + ", startDate=" + startDate
+		return "TaskDTO [taskId=" + taskId + ", name=" + name + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", comment=" + comment + ", description=" + description + ", quantity="
-				+ quantity + ", status=" + status + ", modifiedOn=" + modifiedOn + ", createdOn=" + createdOn + "]";
+				+ quantity + ", status=" + status + ", modifiedOn=" + modifiedOn + ", createdOn=" + createdOn
+				+ ", users=" + users + "]";
 	}
 	
-	
+	public TaskDTO(int taskId, int userId, String name, Date startDate, Date endDate, String comment,
+			String description, int quantity, int status, Date modifiedOn, Date createdOn, List<UserDTO> users) {
+		super();
+		this.taskId = taskId;
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.comment = comment;
+		this.description = description;
+		this.quantity = quantity;
+		this.status = status;
+		this.modifiedOn = modifiedOn;
+		this.createdOn = createdOn;
+		this.users = users;
+	}
+	public TaskDTO() {
+		super();
+	}
 	
 	
 }

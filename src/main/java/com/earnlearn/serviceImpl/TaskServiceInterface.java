@@ -1,6 +1,8 @@
 package com.earnlearn.serviceImpl;
 
 import java.util.List;
+
+import com.earnlearn.dto.TaskDTO;
 import com.earnlearn.entity.Task;
 
 public interface TaskServiceInterface {
@@ -11,11 +13,11 @@ public interface TaskServiceInterface {
 	
 	public void deleteTaskById(int id);
 	
-	public List<Task> getTaskList();
+	public List<TaskDTO> getTaskList();
 	
 	public Task getById(int id);
 
-//	public List<Task> getTaskByUserid(int uid);
+	public List<TaskDTO> getTaskByUserid(int uid);
 
 
 }
