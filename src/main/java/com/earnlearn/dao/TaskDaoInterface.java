@@ -11,6 +11,8 @@ import com.earnlearn.entity.User;
 @Repository
 public interface TaskDaoInterface extends JpaRepository<Task, Integer> {
 
-	List<Task> findAllByUsers(User user);
+	List<Task> findAllByUsersOrderByStartDateAsc(User user);
+
+	List<Task> findAllByOrderByStartDateAsc();
 
 }

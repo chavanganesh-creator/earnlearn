@@ -1,6 +1,5 @@
 package com.earnlearn.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,18 +11,9 @@ import javax.persistence.Table;
 public class Role {
 
 	@Id
-	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int roleId;
 	private String name;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -32,9 +22,18 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Role [id=" + roleId + ", name=" + name + "]";
 	}
 }

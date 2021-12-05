@@ -38,10 +38,9 @@ public class DepartmentController {
 	DepartmentConverter Converter;
 
 	@PostMapping("/insertDepartment")
-	public Department saveDepartment(@RequestBody Department department) {
+	public ResponseEntity<?> saveDepartment(@RequestBody Department department) {
 		// TODO Auto-generated method stub
-		Department dept = departmentServiceInterface.saveDepartment(department);
-		return dept;
+		return departmentServiceInterface.saveDepartment(department);
 	}
 	
 	@PutMapping("/updateDepartment")

@@ -1,13 +1,19 @@
 package com.earnlearn.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.earnlearn.config.TaskConverter;
 import com.earnlearn.dao.TaskDaoInterface;
 import com.earnlearn.dao.UserDaoInterface;
+import com.earnlearn.dto.ReportDTO;
 import com.earnlearn.dto.TaskDTO;
 import com.earnlearn.entity.Task;
 import com.earnlearn.entity.User;
@@ -31,14 +37,24 @@ public class TaskService implements TaskServiceInterface {
 		return 	taskDaoInterface.save(task); 
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Task updateTask(Task task) {
-		// TODO Auto-generated method stub
-		Task exitTask = taskDaoInterface.findById(task.getTid()).get();
+	public ResponseEntity<?> updateTask(Task task) {
 		
-		exitTask.setUsers(task.getUsers());
-		exitTask.setModifiedOn(new Date());
-		return taskDaoInterface.save(exitTask);
+		ResponseEntity<?> response = null;
+		try {
+			Task exitTask = taskDaoInterface.findById(task.getTid()).get();
+			
+			exitTask.setUsers(task.getUsers());
+			exitTask.setStatus(task.getStatus());
+			exitTask.setModifiedOn(new Date());
+			taskDaoInterface.save(exitTask);	
+			response = new ResponseEntity("User and Status updated!",HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			response = new ResponseEntity(e,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
 	}
 
 	@Override
@@ -56,7 +72,7 @@ public class TaskService implements TaskServiceInterface {
 	@Override
 	public List<TaskDTO> getTaskList() {
 		// TODO Auto-generated method stub
-		List<Task> tasks = taskDaoInterface.findAll();
+		List<Task> tasks = taskDaoInterface.findAllByOrderByStartDateAsc();
 		return taskConverter.entityToDto(tasks);
 	}
 	
@@ -67,8 +83,40 @@ public class TaskService implements TaskServiceInterface {
 	 */
 	public List<TaskDTO> getTaskByUserid(int uid){
 		User user = userInterface.findById(uid).get();
-		List<Task> tasks = taskDaoInterface.findAllByUsers(user);
+		List<Task> tasks = taskDaoInterface.findAllByUsersOrderByStartDateAsc(user);
 		return taskConverter.entityToDto(tasks);
 	}
 	
+	public ReportDTO getReport(int uid){
+		long duration = 0;
+		ArrayList<Integer> task_ids = new ArrayList<Integer>();
+		User user = userInterface.findById(uid).get();
+		List<Task> tasks = taskDaoInterface.findAllByUsersOrderByStartDateAsc(user);
+		for(Task task : tasks) {
+			duration = duration + (task.getEndDate().getTime() - task.getStartDate().getTime());
+			task_ids.add(task.getTid());
+		}
+		
+		ReportDTO report = new ReportDTO();
+		report.setUser_id(user.getUid());
+		report.setDuration(TimeUnit.MILLISECONDS.toMinutes(duration));
+		report.setTask_id(task_ids);
+		return report;
+	}
+
+	public ReportDTO getReports(){
+		long duration = 0;
+		ArrayList<Integer> task_ids = new ArrayList<Integer>();
+
+		List<TaskDTO> tasks = taskConverter.entityToDto(taskDaoInterface.findAll());
+		for(TaskDTO task : tasks) {
+			duration = duration + (task.getEndDate().getTime() - task.getStartDate().getTime());
+			task_ids.add(task.getTaskId());
+		}
+		
+		ReportDTO report = new ReportDTO();
+		report.setDuration(TimeUnit.MILLISECONDS.toMinutes(duration));
+		report.setTask_id(task_ids);
+		return report;
+	}
 }

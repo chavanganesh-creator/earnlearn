@@ -9,11 +9,13 @@ package com.earnlearn.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.earnlearn.entity.Department;
 
 public interface DepartmentServiceInterface {
 	
-	public Department saveDepartment(Department department);
+	public ResponseEntity<?> saveDepartment(Department department);
 	
 	public Department updateDepartment(Department department);
 	

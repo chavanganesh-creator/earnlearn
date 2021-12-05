@@ -2,6 +2,8 @@ package com.earnlearn.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.earnlearn.entity.Role;
 
 public interface RoleServiceInterface {
@@ -14,4 +16,5 @@ public interface RoleServiceInterface {
 	
 	public List<Role> getRole(Role role);
 
+	public ResponseEntity<?> assignRole(int role_id, int user_id);
 }

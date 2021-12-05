@@ -6,10 +6,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.earnlearn.config.UserConverter;
+import com.earnlearn.dao.RoleDaoInterface;
 import com.earnlearn.dao.UserDaoInterface;
+import com.earnlearn.dto.UserDTO;
+import com.earnlearn.entity.Role;
 import com.earnlearn.entity.User;
 import com.earnlearn.serviceImpl.UserServiceInterface;
 
@@ -18,21 +23,27 @@ public class UserService implements UserServiceInterface {
 
 	@Autowired
 	UserDaoInterface userDaoInterface;
+	
+	@Autowired
+	RoleDaoInterface roleDaoInterface;
 
+	@Autowired
+	UserConverter userConverter;
+	
 	@Override
-	public User saveUser(User user) {
+	public ResponseEntity<?> saveUser(User user) {
 		user.setCreatedOn(new Date());
 		user.setModifiedOn(new Date());
-		User user1 = userDaoInterface.save(user);
-		return user1;
+		userDaoInterface.save(user);
+		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 
 	@Override
-	public User updateUser(User user) {
+	public ResponseEntity<?> updateUser(User user) {
 		// TODO Auto-generated method stub
 		user.setModifiedOn(new Date());
-		User user1 = userDaoInterface.saveAndFlush(user);
-		return user1;
+		userDaoInterface.saveAndFlush(user);
+		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 
 	@Override
@@ -43,17 +54,17 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public List<User> getUserList() {
-		return userDaoInterface.findAll();
+	public List<UserDTO> getUserList() {
+		return userConverter.entityToDto(userDaoInterface.findAll());
 	}
 
 	@Override
-	public User getById(int id) {
+	public UserDTO getById(int id) {
 		
-		User response = null;
+		UserDTO response = null;
 		Optional<User> userData = userDaoInterface.findById(id);
 		if (userData.isPresent()) {
-			User udata = userData.get();
+			UserDTO udata = userConverter.entityToDto(userData.get());
 			response = udata;
 			
 		} else {
@@ -66,6 +77,13 @@ public class UserService implements UserServiceInterface {
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
 		userDaoInterface.deleteById(id);
+	}
+
+	@Override
+	public List<UserDTO> getUsersByRole(int roleId) {
+		// TODO Auto-generated method stub
+		Role role = roleDaoInterface.findById(roleId).get();
+		return userConverter.entityToDto(userDaoInterface.findAllByRole(role));
 	}
 
 }

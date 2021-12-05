@@ -3,6 +3,7 @@ package com.earnlearn.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class RoleController {
 		return roleServiceInterface.updateRole(role);
 	}
 
-	@DeleteMapping("/deleteById")
+	@DeleteMapping("/delete/{id}")
 	public void deleteRoleById(@PathVariable("id")  int id) {
 		// TODO Auto-generated method stub
 		roleServiceInterface.deleteRoleById(id);
@@ -43,6 +44,13 @@ public class RoleController {
 	public List<Role> getRole(@RequestBody  Role role) {
 		// TODO Auto-generated method stub
 		return roleServiceInterface.getRole(role);
+	}
+	
+	@PutMapping("/assign-role/{role_id}/user/{user_id}")
+	public ResponseEntity<?> assignRole(
+			@PathVariable int role_id,
+			@PathVariable int user_id ){
+		return roleServiceInterface.assignRole(role_id, user_id);
 	}
 
 }

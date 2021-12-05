@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.earnlearn.dto.UserDTO;
 import com.earnlearn.entity.User;
 import com.earnlearn.serviceImpl.UserServiceInterface;
 
@@ -26,18 +27,13 @@ public class UserController {
 	UserServiceInterface userServiceInterface;
 
 	@PostMapping("/insertUser")
-	public User saveUser(@RequestBody User user) {
-		User user1 = userServiceInterface.saveUser(user);
-		return user1;
+	public ResponseEntity<?> saveUser(@RequestBody User user) {
+		return userServiceInterface.saveUser(user);
 	}
 
 	@PutMapping("/updateUser")
-	public User updateUser(@RequestBody User user) {
-
-		User exitUser = userServiceInterface.getById(user.getUid());
-		user.setModifiedOn(exitUser.getModifiedOn());
-		User user1 = userServiceInterface.updateUser(user);
-		return user1;
+	public ResponseEntity<?> updateUser(@RequestBody User user) {
+		return userServiceInterface.updateUser(user);
 	}
 
 	@DeleteMapping("/deleteUser")
@@ -48,14 +44,20 @@ public class UserController {
 	}
 
 	@GetMapping("/getAllUser")
-	public List<User> getUserList() {
+	public List<UserDTO> getUserList() {
 		return userServiceInterface.getUserList();
+	}
+	
+	@GetMapping("/getUsersByRole/{roleId}")
+	public List<UserDTO> getUsersByRole(@PathVariable int roleId) {
+		return userServiceInterface.getUsersByRole(roleId);
 	}
 
 	@GetMapping("/getUserById/{id}")
 	public ResponseEntity<?> getById(@PathVariable int id) {
 		// TODO Auto-generated method stub
-		User user = userServiceInterface.getById(id);
+		UserDTO user = userServiceInterface.getById(id);
+		
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 

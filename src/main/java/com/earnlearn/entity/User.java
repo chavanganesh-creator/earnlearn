@@ -3,7 +3,6 @@ package com.earnlearn.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -12,9 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*  @ author Nalanda */
 @Entity
@@ -32,6 +31,11 @@ public class User {
 	
 	@ManyToMany(mappedBy = "users")
 	private List<Task> tasks;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(foreignKey = @ForeignKey(name="roleId"), name="roleId")
+	private Role role;
+
 	
 	public List<Task> getTasks() {
 		return tasks;
@@ -75,7 +79,10 @@ public class User {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-	public User(int uid, String name, String email, String password, Date createdOn, Date modifiedOn) {
+	
+	
+	public User(int uid, String name, String email, String password, Date createdOn, Date modifiedOn, List<Task> tasks,
+			Role role) {
 		super();
 		this.uid = uid;
 		this.name = name;
@@ -83,15 +90,25 @@ public class User {
 		this.password = password;
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
+		this.tasks = tasks;
+		this.role = role;
 	}
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 	@Override
 	public String toString() {
-		return "User [id=" + uid + ", name=" + name + ", email=" + email + ", password=" + password + ", createdOn="
-				+ createdOn + ", modifiedOn=" + modifiedOn + "]";
+		return "User [uid=" + uid + ", name=" + name + ", email=" + email + ", password=" + password + ", createdOn="
+				+ createdOn + ", modifiedOn=" + modifiedOn + ", tasks=" + tasks + ", role=" + role + "]";
 	}
 	
 	

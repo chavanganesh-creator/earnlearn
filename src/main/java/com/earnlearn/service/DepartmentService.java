@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,12 +30,19 @@ public class DepartmentService implements DepartmentServiceInterface {
 	// insert data in database
 
 	@Override
-	public Department saveDepartment(Department department) {
+	public ResponseEntity<?> saveDepartment(Department department) {
 		// TODO Auto-generated method stub
-		department.setCreatedOn(new Date());
-		department.setModifiedOn(new Date());
-		Department dept = departmentDaoInterface.save(department);
-		return dept;
+		ResponseEntity<?> response = null;
+		try {
+			department.setCreatedOn(new Date());
+			department.setModifiedOn(new Date());
+			Department dept = departmentDaoInterface.save(department);
+			response = new ResponseEntity<>("Success",HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			response = new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
 	}
 
 	// update data
