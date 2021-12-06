@@ -48,10 +48,10 @@ public class TaskService implements TaskServiceInterface {
 			exitTask.setStatus(task.getStatus());
 			exitTask.setModifiedOn(new Date());
 			taskDaoInterface.save(exitTask);	
-			response = new ResponseEntity<>("User and Status in Task updated!",HttpStatus.OK);
+			response = new ResponseEntity<>(0,HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
-			response = new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+			response = new ResponseEntity<>(1,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return response;
 	}
@@ -68,10 +68,10 @@ public class TaskService implements TaskServiceInterface {
 //			exitTask.setStatus(task.getStatus());
 //			exitTask.setModifiedOn(new Date());
 			taskDaoInterface.saveAndFlush(task);	
-			response = new ResponseEntity<>("Task updated!",HttpStatus.OK);
+			response = new ResponseEntity<>(0,HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
-			response = new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+			response = new ResponseEntity<>(1,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return response;
 	}
