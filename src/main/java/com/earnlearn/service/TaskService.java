@@ -37,9 +37,8 @@ public class TaskService implements TaskServiceInterface {
 		return 	taskDaoInterface.save(task); 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public ResponseEntity<?> updateTask(Task task) {
+	public ResponseEntity<?> assignTask(Task task) {
 		
 		ResponseEntity<?> response = null;
 		try {
@@ -49,10 +48,30 @@ public class TaskService implements TaskServiceInterface {
 			exitTask.setStatus(task.getStatus());
 			exitTask.setModifiedOn(new Date());
 			taskDaoInterface.save(exitTask);	
-			response = new ResponseEntity("User and Status updated!",HttpStatus.OK);
+			response = new ResponseEntity<>("User and Status in Task updated!",HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
-			response = new ResponseEntity(e,HttpStatus.INTERNAL_SERVER_ERROR);
+			response = new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
+	}
+	
+	@Override
+	public ResponseEntity<?> updateTask(Task task) {
+		
+		ResponseEntity<?> response = null;
+		try {
+//			Task exitTask = taskDaoInterface.findById(task.getTid()).get();
+//			exitTask.setComment(task.getComment());
+//			exitTask.set
+//			exitTask.setUsers(task.getUsers());
+//			exitTask.setStatus(task.getStatus());
+//			exitTask.setModifiedOn(new Date());
+			taskDaoInterface.saveAndFlush(task);	
+			response = new ResponseEntity<>("Task updated!",HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			response = new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return response;
 	}

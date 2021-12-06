@@ -14,6 +14,8 @@ public interface TaskServiceInterface {
 	
 	public ResponseEntity<?> updateTask(Task task);
 	
+	public ResponseEntity<?> assignTask(Task task);
+
 	public void deleteTaskById(int id);
 	
 	public List<TaskDTO> getTaskList();

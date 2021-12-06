@@ -45,6 +45,12 @@ public class TaskController {
 		// TODO Auto-generated method stub
 		return taskServiceInterface.updateTask(task);
 	}
+	
+	@PutMapping("/assignTask")
+	public ResponseEntity<?> assignTask(@RequestBody Task task) {
+		// TODO Auto-generated method stub
+		return taskServiceInterface.assignTask(task);
+	}
 
 	@DeleteMapping("/deleteTaskById/{id}")
 	public void deleteTaskById(@PathVariable int id) {
