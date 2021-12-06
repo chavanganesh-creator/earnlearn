@@ -41,9 +41,9 @@ public class RoleController {
 	}
 
 	@GetMapping("/getRoleList")
-	public List<Role> getRole(@RequestBody  Role role) {
+	public List<Role> getRole() {
 		// TODO Auto-generated method stub
-		return roleServiceInterface.getRole(role);
+		return roleServiceInterface.getRole();
 	}
 	
 	@PutMapping("/assign-role/{role_id}/user/{user_id}")

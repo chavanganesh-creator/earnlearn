@@ -41,7 +41,7 @@ public class RoleService implements RoleServiceInterface {
 	}
 
 	@Override
-	public List<Role> getRole(Role role) {
+	public List<Role> getRole() {
 		// TODO Auto-generated method stub
 		return roleDaoInterface.findAll();
 	}

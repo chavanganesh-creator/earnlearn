@@ -14,7 +14,7 @@ public interface RoleServiceInterface {
 	
 	public  void deleteRoleById(int id);
 	
-	public List<Role> getRole(Role role);
+	public List<Role> getRole();
 
 	public ResponseEntity<?> assignRole(int role_id, int user_id);
 }
