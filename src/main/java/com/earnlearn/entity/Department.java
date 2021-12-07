@@ -1,6 +1,6 @@
 package com.earnlearn.entity;
 
-/*
+/**
  * @author:Rutuja Jadhav
  * date-25/11/2021
  * department entity class
@@ -37,6 +37,11 @@ public class Department {
 	private User user;
 	
 
+	/**
+	 * getter and setter
+	 * @return
+	 */
+	
 	public User getUser() {
 		return user;
 	}
@@ -85,6 +90,14 @@ public class Department {
 		this.modifiedOn = modifiedOn;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param createdOn
+	 * @param modifiedOn
+	 */
+	
 	public Department(int id, String name, Date createdOn, Date modifiedOn) {
 		super();
 		this.did = did;

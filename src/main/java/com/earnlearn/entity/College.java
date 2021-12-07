@@ -1,6 +1,12 @@
 package com.earnlearn.entity;
 
+/**
+ * @author Rutuja jadhav
+ * 
+ */
+
 import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,12 +26,22 @@ public class College {
 	private Date createdOn;
 	private Date modifiedOn;
 
+	/**
+	 * Mapping one to many for college and payment
+	 * mapping one to many college and department
+	 */
+	
 	@OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Payment>payment;
 	
 	@OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Department>department;
 
+	/**
+	 * getter and setter
+	 * @return
+	 */
+	
 	public int getCid() {
 		return cid;
 	}
@@ -73,12 +89,27 @@ public class College {
 	public void setDepartment(List<Department> department) {
 		this.department = department;
 	}
+	
+	/**
+	 * 
+	 * To String generated
+	 */
 
 	@Override
 	public String toString() {
 		return "College [cid=" + cid + ", name=" + name + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
 				+ ", payment=" + payment + ", department=" + department + "]";
 	}
+	
+	/**
+	 * 
+	 * @param cid
+	 * @param name
+	 * @param createdOn
+	 * @param modifiedOn
+	 * @param payment
+	 * @param department
+	 */
 
 	public College(int cid, String name, Date createdOn, Date modifiedOn, List<Payment> payment,
 			List<Department> department) {

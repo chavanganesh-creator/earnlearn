@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,14 +32,40 @@ public class UserService implements UserServiceInterface {
 	@Autowired
 	UserConverter userConverter;
 	
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
 	@Override
 	public ResponseEntity<?> saveUser(User user) {
 		user.setCreatedOn(new Date());
 		user.setModifiedOn(new Date());
 		userDaoInterface.save(user);
+		
+		/* Pass mail function to user*/
+		
+		sendEmail(user);
 		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 
+		/*	Email Sending function */
+	
+	void sendEmail(User user) {
+		String mailTo = user.getEmail();
+        SimpleMailMessage msg = new SimpleMailMessage();	
+        msg.setTo(mailTo);
+        msg.setSubject("Daily Task Details Portal");
+        msg.setText("Dear"+user.getName()+",\n"
+        		+"\nYour Task code is generated on daily Work status portal,so now you can access the portal from your side./r/n"
+        		+ "\nYou are requested to login portal from http://localhost:9999/loginForm and login./r/n"
+        		+ "\nLogin crediential for your daily work status portal are as below:./r/n"
+        		+ "\nUsername:"+user.getEmail()+"\n"
+        				+ "\nPassword:"+user.getPassword()+"\n"
+        						+ "\nRegarding any queries feel to free call us on 1234567879\r\n"
+        						+ "\n\nThanks and Regards,"
+        						+ "\nEarn And Learn");
+       javaMailSender.send(msg);
+	}
+	
 	@Override
 	public ResponseEntity<?> updateUser(User user) {
 		// TODO Auto-generated method stub
