@@ -1,6 +1,5 @@
 package com.earnlearn.config;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +32,26 @@ public class TaskConverter {
 	public List<TaskDTO> entityToDto(List<Task> task) {
 		return task.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
 
+	}
+	
+	public Task dtoToEntity(TaskDTO dto) {
+		UserConverter userConverter = new UserConverter();
+		Task entity = new Task();
+		entity.setTid(dto.getTaskId());
+		entity.setName(dto.getName());
+		entity.setStartDate(dto.getStartDate());
+		entity.setEndDate(dto.getEndDate());
+		entity.setComment(dto.getComment());
+		entity.setDescription(dto.getDescription());
+		entity.setQuantity(dto.getQuantity());
+		entity.setStatus(dto.getStatus());
+		entity.setCreatedOn(dto.getCreatedOn());
+		entity.setModifiedOn(dto.getModifiedOn());
+		entity.setUsers(userConverter.dtoToEntity(dto.getUsers()));
+		return entity;
+	}
+
+	public List<Task> dtoToEntity(List<TaskDTO> dto) {
+		return dto.stream().map(x -> dtoToEntity(x)).collect(Collectors.toList());
 	}
 }

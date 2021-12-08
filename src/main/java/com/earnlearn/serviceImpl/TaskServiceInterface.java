@@ -12,7 +12,7 @@ public interface TaskServiceInterface {
 	
 	public Task saveTask(Task task);
 	
-	public ResponseEntity<?> updateTask(Task task);
+	public ResponseEntity<?> updateTask(TaskDTO task);
 	
 	public ResponseEntity<?> assignTask(Task task);
 

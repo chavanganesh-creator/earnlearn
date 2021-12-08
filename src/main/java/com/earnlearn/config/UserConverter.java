@@ -27,16 +27,17 @@ public class UserConverter {
 
 	}
 
-//	public Department dtoToEntity(DepartmentDto departmentDto) {
-//
-//		Department entity = new Department();
-//		entity.setId(departmentDto.getDeptId());
-//		entity.setName(departmentDto.getName());
-//		return entity;
-//
-//	}
-//
-//	public List<Department> dtoToEntity(List<DepartmentDto> dto) {
-//		return dto.stream().map(x -> dtoToEntity(x)).collect(Collectors.toList());
-//	}
+	public User dtoToEntity(UserDTO dto) {
+
+		User entity = new User();
+		entity.setUid(dto.getUserId());
+		entity.setName(dto.getName());
+		entity.setEmail(dto.getEmail());
+		return entity;
+
+	}
+
+	public List<User> dtoToEntity(List<UserDTO> dto) {
+		return dto.stream().map(x -> dtoToEntity(x)).collect(Collectors.toList());
+	}
 }

@@ -3,6 +3,7 @@ package com.earnlearn.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.earnlearn.dao.TaskDaoInterface;
 import com.earnlearn.dao.UserDaoInterface;
 import com.earnlearn.dto.ReportDTO;
 import com.earnlearn.dto.TaskDTO;
+import com.earnlearn.dto.UserDTO;
 import com.earnlearn.entity.Task;
 import com.earnlearn.entity.User;
 import com.earnlearn.serviceImpl.TaskServiceInterface;
@@ -57,17 +59,22 @@ public class TaskService implements TaskServiceInterface {
 	}
 	
 	@Override
-	public ResponseEntity<?> updateTask(Task task) {
+	public ResponseEntity<?> updateTask(TaskDTO task) {
 		
 		ResponseEntity<?> response = null;
 		try {
-//			Task exitTask = taskDaoInterface.findById(task.getTid()).get();
-//			exitTask.setComment(task.getComment());
-//			exitTask.set
-//			exitTask.setUsers(task.getUsers());
-//			exitTask.setStatus(task.getStatus());
-//			exitTask.setModifiedOn(new Date());
-			taskDaoInterface.saveAndFlush(task);	
+			List<UserDTO> users = new ArrayList<UserDTO>();
+			if(task.getUsers()!=null && !task.getUsers().isEmpty()) {
+				for(UserDTO user : task.getUsers()) {				
+					UserDTO u = new UserDTO();
+					u.setUserId(user.getUserId());
+					users.add(u);
+				}
+				task.setUsers(users);
+			}
+			
+			
+			taskDaoInterface.saveAndFlush(taskConverter.dtoToEntity(task));	
 			response = new ResponseEntity<>(0,HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception

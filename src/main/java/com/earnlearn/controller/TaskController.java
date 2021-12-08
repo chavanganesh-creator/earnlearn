@@ -43,7 +43,7 @@ public class TaskController {
 	}
 
 	@PutMapping("/updateTask")
-	public ResponseEntity<?> updateTask(@RequestBody Task task) {
+	public ResponseEntity<?> updateTask(@RequestBody TaskDTO task) {
 		// TODO Auto-generated method stub
 		return taskServiceInterface.updateTask(task);
 	}
