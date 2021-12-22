@@ -1,4 +1,4 @@
-package com.earnlearn.dto;
+package com.earnlearn.model;
 
 import java.util.ArrayList;
 

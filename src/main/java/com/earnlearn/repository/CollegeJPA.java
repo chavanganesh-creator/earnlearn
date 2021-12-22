@@ -1,4 +1,4 @@
-package com.earnlearn.dao;
+package com.earnlearn.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 import com.earnlearn.entity.College;
 
 @Repository
-public interface CollegeDaoInterface extends JpaRepository<College, Integer>{
+public interface CollegeJPA extends JpaRepository<College, Integer>{
 
 }

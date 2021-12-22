@@ -1,4 +1,4 @@
-package com.earnlearn.dao;
+package com.earnlearn.repository;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import com.earnlearn.entity.Task;
 import com.earnlearn.entity.User;
 
 @Repository
-public interface TaskDaoInterface extends JpaRepository<Task, Integer> {
+public interface TaskJPA extends JpaRepository<Task, Integer> {
 
 	List<Task> findAllByUsersOrderByStartDateAsc(User user);
 

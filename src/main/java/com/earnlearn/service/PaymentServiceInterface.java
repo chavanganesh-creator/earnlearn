@@ -1,4 +1,4 @@
-package com.earnlearn.serviceImpl;
+package com.earnlearn.service;
 
 import java.util.List;
 

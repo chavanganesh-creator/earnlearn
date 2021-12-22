@@ -1,4 +1,4 @@
-package com.earnlearn.service;
+package com.earnlearn.serviceImple;
 
 import java.util.Date;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.earnlearn.dao.DepartmentDaoInterface;
+import com.earnlearn.repository.DepartmentJPA;
 import com.earnlearn.entity.Department;
-import com.earnlearn.serviceImpl.DepartmentServiceInterface;
+import com.earnlearn.service.DepartmentServiceInterface;
 
 /**
  * @author:Rutuja Jadhav
@@ -25,7 +25,7 @@ import com.earnlearn.serviceImpl.DepartmentServiceInterface;
 public class DepartmentService implements DepartmentServiceInterface {
 
 	@Autowired
-	DepartmentDaoInterface departmentDaoInterface;
+    DepartmentJPA departmentJPA;
 
 	// insert data in database
 
@@ -36,7 +36,7 @@ public class DepartmentService implements DepartmentServiceInterface {
 		try {
 			department.setCreatedOn(new Date());
 			department.setModifiedOn(new Date());
-			Department dept = departmentDaoInterface.save(department);
+			Department dept = departmentJPA.save(department);
 			response = new ResponseEntity<>("Success",HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -51,7 +51,7 @@ public class DepartmentService implements DepartmentServiceInterface {
 	public Department updateDepartment(Department department) {
 		// TODO Auto-generated method stub
 		department.setModifiedOn(new Date());
-		Department dept = departmentDaoInterface.saveAndFlush(department);
+		Department dept = departmentJPA.saveAndFlush(department);
 		return dept;
 	}
 
@@ -60,7 +60,7 @@ public class DepartmentService implements DepartmentServiceInterface {
 	@Override
 	public void deleteDepartment(Department department) {
 		// TODO Auto-generated method stub
-		departmentDaoInterface.delete(department);
+		departmentJPA.delete(department);
 
 	}
 
@@ -69,14 +69,14 @@ public class DepartmentService implements DepartmentServiceInterface {
 	@Override
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
-		departmentDaoInterface.deleteById(id);
+		departmentJPA.deleteById(id);
 
 	}
 
 	@Override
 	public List<Department> getDepartmentList() {
 		// TODO Auto-generated method stub
-		return departmentDaoInterface.findAll();
+		return departmentJPA.findAll();
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class DepartmentService implements DepartmentServiceInterface {
 		// TODO Auto-generated method stub
 
 		Department response = null;
-		Optional<Department> departmentData = departmentDaoInterface.findById(id);
+		Optional<Department> departmentData = departmentJPA.findById(id);
 		if (departmentData.isPresent()) {
 			Department ddata = departmentData.get();
 			response = ddata;

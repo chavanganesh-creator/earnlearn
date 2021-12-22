@@ -1,4 +1,4 @@
-package com.earnlearn.dao;
+package com.earnlearn.repository;
 
 /**
  * @author:Rutuja Jadhav
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.earnlearn.entity.Department;
 
 @Repository
-public interface DepartmentDaoInterface extends JpaRepository<Department, Integer>{
+public interface DepartmentJPA extends JpaRepository<Department, Integer>{
 
 	
 

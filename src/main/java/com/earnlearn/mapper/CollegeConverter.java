@@ -1,9 +1,9 @@
-package com.earnlearn.config;
+package com.earnlearn.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.earnlearn.dto.CollegeDTO;
+import com.earnlearn.model.CollegeDTO;
 import com.earnlearn.entity.College;
 
 

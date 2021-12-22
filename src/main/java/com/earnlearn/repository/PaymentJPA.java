@@ -1,4 +1,4 @@
-package com.earnlearn.dao;
+package com.earnlearn.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.earnlearn.entity.Payment;
 
 @Repository
-public interface PaymentDaoInterface extends JpaRepository<Payment, Integer> {
+public interface PaymentJPA extends JpaRepository<Payment, Integer> {
 
 }

@@ -1,4 +1,4 @@
-package com.earnlearn.service;
+package com.earnlearn.serviceImple;
 
 import java.util.Date;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.earnlearn.dao.CollegeDaoInterface;
+import com.earnlearn.repository.CollegeJPA;
 import com.earnlearn.entity.College;
-import com.earnlearn.serviceImpl.CollegeServiceInterface;
+import com.earnlearn.service.CollegeServiceInterface;
 
 /**
  * 
@@ -23,14 +23,14 @@ import com.earnlearn.serviceImpl.CollegeServiceInterface;
 public class CollegeService implements CollegeServiceInterface {
 
 	@Autowired
-	CollegeDaoInterface collegeDaoInterface;
+    CollegeJPA collegeJPA;
 
 	@Override
 	public College savecollege(College college) {
 		// TODO Auto-generated method stub
 		college.setCreatedOn(new Date());
 		college.setModifiedOn(new Date());
-		College clg = collegeDaoInterface.save(college);
+		College clg = collegeJPA.save(college);
 		return clg;
 	}
 
@@ -38,28 +38,28 @@ public class CollegeService implements CollegeServiceInterface {
 	public College updatecollege(College college) {
 		// TODO Auto-generated method stub
 		college.setModifiedOn(new Date());
-		College clg = collegeDaoInterface.saveAndFlush(college);
+		College clg = collegeJPA.saveAndFlush(college);
 		return clg;
 	}
 
 	@Override
 	public void deleteCollege(College college) {
 		// TODO Auto-generated method stub
-		collegeDaoInterface.delete(college);
+		collegeJPA.delete(college);
 
 	}
 
 	@Override
 	public List<College> getCollegeList() {
 		// TODO Auto-generated method stub
-		return collegeDaoInterface.findAll();
+		return collegeJPA.findAll();
 	}
 
 	@Override
 	public College getById(int id) {
 		// TODO Auto-generated method stub
 		College response = null;
-		Optional<College> collegeData = collegeDaoInterface.findById(id);
+		Optional<College> collegeData = collegeJPA.findById(id);
 		if (collegeData.isPresent()) {
 			College Cdata = collegeData.get();
 			response = Cdata;
@@ -73,7 +73,7 @@ public class CollegeService implements CollegeServiceInterface {
 	@Override
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
-		collegeDaoInterface.deleteById(id);
+		collegeJPA.deleteById(id);
 
 	}
 

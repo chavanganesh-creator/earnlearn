@@ -1,11 +1,11 @@
-package com.earnlearn.config;
+package com.earnlearn.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.earnlearn.dto.UserDTO;
+import com.earnlearn.model.UserDTO;
 import com.earnlearn.entity.User;
 
 
@@ -24,7 +24,6 @@ public class UserConverter {
 
 	public List<UserDTO> entityToDto(List<User> user) {
 		return user.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
-
 	}
 
 	public User dtoToEntity(UserDTO dto) {

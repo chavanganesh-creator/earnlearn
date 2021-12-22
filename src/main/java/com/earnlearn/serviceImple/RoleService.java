@@ -1,4 +1,4 @@
-package com.earnlearn.service;
+package com.earnlearn.serviceImple;
 
 import java.util.List;
 
@@ -9,51 +9,51 @@ import org.springframework.stereotype.Service;
 
 import com.earnlearn.entity.Role;
 import com.earnlearn.entity.User;
-import com.earnlearn.serviceImpl.RoleServiceInterface;
-import com.earnlearn.dao.RoleDaoInterface;
-import com.earnlearn.dao.UserDaoInterface;
+import com.earnlearn.service.RoleServiceInterface;
+import com.earnlearn.repository.RoleJPA;
+import com.earnlearn.repository.UserJPA;
 
 @Service
 public class RoleService implements RoleServiceInterface {
 
 	@Autowired
-	RoleDaoInterface roleDaoInterface;
+    RoleJPA roleJPA;
 
 	@Autowired
-	UserDaoInterface userDaoInterface;
+	UserJPA userJPA;
 	
 	@Override
 	public Role saveRole(Role role) {
 		// TODO Auto-generated method stub
-		return roleDaoInterface.save(role);
+		return roleJPA.save(role);
 	}
 
 	@Override
 	public Role updateRole(Role role) {
 		// TODO Auto-generated method stub
-		return roleDaoInterface.saveAndFlush(role);
+		return roleJPA.saveAndFlush(role);
 	}
 
 	@Override
 	public void deleteRoleById(int id) {
 		// TODO Auto-generated method stub
-		roleDaoInterface.deleteById(id);
+		roleJPA.deleteById(id);
 	}
 
 	@Override
 	public List<Role> getRole() {
 		// TODO Auto-generated method stub
-		return roleDaoInterface.findAll();
+		return roleJPA.findAll();
 	}
 
 	@Override
 	public ResponseEntity<?> assignRole(int user_id, int role_id) {
 		ResponseEntity<?> response = null;
 		try {
-			User user = userDaoInterface.findById(user_id).get();
-			Role role = roleDaoInterface.findById(role_id).get();
+			User user = userJPA.findById(user_id).get();
+			Role role = roleJPA.findById(role_id).get();
 			user.setRole(role);
-			userDaoInterface.saveAndFlush(user);
+			userJPA.saveAndFlush(user);
 			response = new ResponseEntity<>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception

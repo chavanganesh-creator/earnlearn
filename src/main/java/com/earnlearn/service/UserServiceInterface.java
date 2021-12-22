@@ -1,10 +1,10 @@
-package com.earnlearn.serviceImpl;
+package com.earnlearn.service;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.earnlearn.dto.UserDTO;
+import com.earnlearn.model.UserDTO;
 import com.earnlearn.entity.User;
 
 public interface UserServiceInterface {

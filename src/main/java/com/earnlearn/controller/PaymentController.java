@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.earnlearn.serviceImpl.PaymentServiceInterface;
+import com.earnlearn.service.PaymentServiceInterface;
 import com.earnlearn.entity.Payment;
 
 @RestController
 @RequestMapping("payment")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://earnlearn-dc60f.web.app")
 public class PaymentController {
 
 	@Autowired

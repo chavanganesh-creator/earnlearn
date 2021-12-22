@@ -1,4 +1,4 @@
-package com.earnlearn.service;
+package com.earnlearn.serviceImple;
 
 import java.util.Date;
 import java.util.List;
@@ -12,22 +12,22 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.earnlearn.config.UserConverter;
-import com.earnlearn.dao.RoleDaoInterface;
-import com.earnlearn.dao.UserDaoInterface;
-import com.earnlearn.dto.UserDTO;
+import com.earnlearn.mapper.UserConverter;
+import com.earnlearn.repository.RoleJPA;
+import com.earnlearn.repository.UserJPA;
+import com.earnlearn.model.UserDTO;
 import com.earnlearn.entity.Role;
 import com.earnlearn.entity.User;
-import com.earnlearn.serviceImpl.UserServiceInterface;
+import com.earnlearn.service.UserServiceInterface;
 
 @Service
 public class UserService implements UserServiceInterface {
 
 	@Autowired
-	UserDaoInterface userDaoInterface;
+	UserJPA userJPA;
 	
 	@Autowired
-	RoleDaoInterface roleDaoInterface;
+    RoleJPA roleJPA;
 
 	@Autowired
 	UserConverter userConverter;
@@ -39,7 +39,7 @@ public class UserService implements UserServiceInterface {
 	public ResponseEntity<?> saveUser(User user) {
 		user.setCreatedOn(new Date());
 		user.setModifiedOn(new Date());
-		userDaoInterface.save(user);
+		userJPA.save(user);
 		
 		/* Pass mail function to user*/
 		
@@ -70,27 +70,27 @@ public class UserService implements UserServiceInterface {
 	public ResponseEntity<?> updateUser(User user) {
 		// TODO Auto-generated method stub
 		user.setModifiedOn(new Date());
-		userDaoInterface.saveAndFlush(user);
+		userJPA.saveAndFlush(user);
 		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 
 	@Override
 	public void deleteUser(User user) {
 		// TODO Auto-generated method stub
-		userDaoInterface.delete(user);
+		userJPA.delete(user);
 
 	}
 
 	@Override
 	public List<UserDTO> getUserList() {
-		return userConverter.entityToDto(userDaoInterface.findAll());
+		return userConverter.entityToDto(userJPA.findAll());
 	}
 
 	@Override
 	public UserDTO getById(int id) {
 		
 		UserDTO response = null;
-		Optional<User> userData = userDaoInterface.findById(id);
+		Optional<User> userData = userJPA.findById(id);
 		if (userData.isPresent()) {
 			UserDTO udata = userConverter.entityToDto(userData.get());
 			response = udata;
@@ -104,14 +104,14 @@ public class UserService implements UserServiceInterface {
 	@Override
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
-		userDaoInterface.deleteById(id);
+		userJPA.deleteById(id);
 	}
 
 	@Override
 	public List<UserDTO> getUsersByRole(int roleId) {
 		// TODO Auto-generated method stub
-		Role role = roleDaoInterface.findById(roleId).get();
-		return userConverter.entityToDto(userDaoInterface.findAllByRole(role));
+		Role role = roleJPA.findById(roleId).get();
+		return userConverter.entityToDto(userJPA.findAllByRole(role));
 	}
 
 }

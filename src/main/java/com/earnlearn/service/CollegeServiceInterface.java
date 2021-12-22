@@ -1,4 +1,4 @@
-package com.earnlearn.serviceImpl;
+package com.earnlearn.service;
 
 /**
  * @author Rutuja Jadhav

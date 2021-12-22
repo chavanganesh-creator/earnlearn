@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.earnlearn.entity.College;
-import com.earnlearn.serviceImpl.CollegeServiceInterface;
+import com.earnlearn.service.CollegeServiceInterface;
 
 
 /**
@@ -28,7 +28,7 @@ import com.earnlearn.serviceImpl.CollegeServiceInterface;
 
 @RestController
 @RequestMapping("/college")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://earnlearn-dc60f.web.app")
 public class CollegeController {
 	
 	@Autowired

@@ -1,11 +1,11 @@
-package com.earnlearn.serviceImpl;
+package com.earnlearn.service;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.earnlearn.dto.ReportDTO;
-import com.earnlearn.dto.TaskDTO;
+import com.earnlearn.model.ReportDTO;
+import com.earnlearn.model.TaskDTO;
 import com.earnlearn.entity.Task;
 
 public interface TaskServiceInterface {

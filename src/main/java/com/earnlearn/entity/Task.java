@@ -3,18 +3,10 @@ package com.earnlearn.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Columns;
 
 @Entity
 @Table(name = "Task")
@@ -31,12 +23,12 @@ public class Task {
 	private int status = -1;
 	private Date modifiedOn = new Date();
 	private Date createdOn;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 			name = "task_user",
-			joinColumns = { @JoinColumn(name = "tid") },
-			inverseJoinColumns = { @JoinColumn(name = "uid") }
+ 			joinColumns = { @JoinColumn(name = "tid")},
+ 			inverseJoinColumns = { @JoinColumn(name = "uid")}
 			)
 	private List<User> users;
 	
@@ -97,7 +89,8 @@ public class Task {
 	public int getStatus() {
 		return status;
 	}
-
+	@ManyToMany
+	@JoinTable(name="task_user")
 	public void setStatus(int status) {
 		this.status = status;
 	}

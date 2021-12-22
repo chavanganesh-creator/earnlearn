@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.earnlearn.config.DepartmentConverter;
-import com.earnlearn.dto.DepartmentDto;
+import com.earnlearn.mapper.DepartmentConverter;
+import com.earnlearn.model.DepartmentDTO;
 import com.earnlearn.entity.Department;
-import com.earnlearn.serviceImpl.DepartmentServiceInterface;
+import com.earnlearn.service.DepartmentServiceInterface;
 
 
 /**
@@ -30,7 +30,7 @@ import com.earnlearn.serviceImpl.DepartmentServiceInterface;
 
 @RestController
 @RequestMapping("/department")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://earnlearn-dc60f.web.app")
 public class DepartmentController {
 
 	@Autowired
@@ -61,7 +61,7 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/getAllDepartment")
-	public List<DepartmentDto> getDepartmentList() {
+	public List<DepartmentDTO> getDepartmentList() {
 		List<Department> departments=departmentServiceInterface.getDepartmentList();
 		return Converter.entityToDto(departments);
 	}

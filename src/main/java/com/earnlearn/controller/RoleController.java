@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.earnlearn.serviceImpl.RoleServiceInterface;
+import com.earnlearn.service.RoleServiceInterface;
 import com.earnlearn.entity.Role;
 
 @RestController
 @RequestMapping("roles")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://earnlearn-dc60f.web.app")
 public class RoleController {
 	
 	@Autowired

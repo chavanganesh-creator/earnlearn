@@ -1,11 +1,11 @@
-package com.earnlearn.config;
+package com.earnlearn.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.earnlearn.dto.TaskDTO;
+import com.earnlearn.model.TaskDTO;
 import com.earnlearn.entity.Task;
 
 @Component

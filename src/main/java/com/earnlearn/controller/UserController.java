@@ -21,15 +21,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.earnlearn.dto.UserDTO;
+import com.earnlearn.model.UserDTO;
 import com.earnlearn.entity.User;
-import com.earnlearn.serviceImpl.UserServiceInterface;
+import com.earnlearn.service.UserServiceInterface;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://earnlearn-dc60f.web.app")
 public class UserController {
 
 	@Autowired

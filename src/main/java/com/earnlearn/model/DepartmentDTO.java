@@ -1,9 +1,9 @@
-package com.earnlearn.dto;
+package com.earnlearn.model;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class DepartmentDto {
+public class DepartmentDTO {
 
 	private int deptId;
 	private String name;
@@ -42,10 +42,10 @@ public class DepartmentDto {
 		return "DepartmentDto [deptId=" + deptId + ", name=" + name + ", user=" + user + ", college=" + college + "]";
 	}
 	
-	public DepartmentDto() {
+	public DepartmentDTO() {
 		super();
 	}
-	public DepartmentDto(int deptId, String name, UserDTO user, CollegeDTO college) {
+	public DepartmentDTO(int deptId, String name, UserDTO user, CollegeDTO college) {
 		super();
 		this.deptId = deptId;
 		this.name = name;

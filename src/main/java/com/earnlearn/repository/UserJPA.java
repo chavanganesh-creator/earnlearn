@@ -1,4 +1,4 @@
-package com.earnlearn.dao;
+package com.earnlearn.repository;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import com.earnlearn.entity.Role;
 import com.earnlearn.entity.User;
 
 @Repository
-public interface UserDaoInterface extends JpaRepository<User, Integer> {
+public interface UserJPA extends JpaRepository<User, Integer> {
 
 	List<User> findAllByRole(Role role);	
 
